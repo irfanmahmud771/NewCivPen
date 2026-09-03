@@ -759,6 +759,7 @@
         // --- 1. HELPER FUNCTIONS ---
 
         const openEndedPensionIncreaseDate = '9999-12-31';
+        const currentPensionIncreaseDate = getTodayDateString();
 
         const roundToTwoDecimals = (num) => {
             if (typeof num !== 'number' || isNaN(num)) return 0;
