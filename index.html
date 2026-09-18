@@ -384,6 +384,12 @@
                             <div id="cnic-status-message" class="mt-1 whitespace-pre-line text-xs font-medium text-red-600" style="display: none;"></div>
                         </div>
 
+                        <div class="input-group">
+                            <label for="pak-no">Pak No.</label>
+                            <input type="text" id="pak-no" class="calc-input" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="e.g. 487771" aria-describedby="pak-no-help">
+                            <div id="pak-no-help" class="text-xs text-gray-500 mt-1">Used to name saved pension-slip PDFs.</div>
+                        </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 
                             <div class="input-group">
@@ -747,6 +753,7 @@
         let logRetryTimer = null;
         const LOG_DEBOUNCE_DELAY = 1500;
         const LOG_RETRY_DELAY = 4000;
+        const PENSION_SLIP_FILENAME_PREFIX = 'Pension-Slip-';
 
         // NEW: Store calculated values for logging
         let currentCalculatedValues = {
@@ -764,6 +771,15 @@
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
+        };
+
+        const getPensionSlipFilename = () => {
+            const pakNo = document.getElementById('pak-no')?.value.trim() || '';
+            return pakNo ? `${PENSION_SLIP_FILENAME_PREFIX}${pakNo}` : 'Pension-Slip';
+        };
+
+        const updatePensionSlipDocumentTitle = () => {
+            document.title = getPensionSlipFilename();
         };
 
         const openEndedPensionIncreaseDate = '9999-12-31';
@@ -2875,6 +2891,7 @@
 
             const pensionerNameInput = document.getElementById('pensioner-name'); // Name Input
             const cnicInput = document.getElementById('cnic'); // CNIC Input
+            const pakNoInput = document.getElementById('pak-no');
             const payInputs = document.querySelectorAll('.pay-input'); // Pay component inputs
             const linkCheckbox = document.getElementById('link-gross-pension'); // New Checkbox
             const pensionPenaltyInput = document.getElementById('pension-penalty'); // Penalty Input
@@ -2921,6 +2938,16 @@
                     scheduleLogCalculation('CNIC Change (Debounced)');
                 });
             }
+
+            if (pakNoInput) {
+                pakNoInput.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                    updatePensionSlipDocumentTitle();
+                });
+            }
+
+            window.addEventListener('beforeprint', updatePensionSlipDocumentTitle);
+            updatePensionSlipDocumentTitle();
 
             // Add listener to the gross pension auto-link checkbox toggle
             if (linkCheckbox) {
