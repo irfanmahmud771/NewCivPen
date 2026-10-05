@@ -1,19 +1,16 @@
 {
-  "name": "Pension Calculator Federal Civilan",
-  "short_name": "Pension Civilan",
-  "description": "Installable pension calculator app for Windows and Android.",
+  "name": "Pension Calculator Federal Civilian",
+  "short_name": "Pension Calc",
+  "description": "Pension calculator for federal civilian retirements from 01 July 1986 to date.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#f9fafb",
   "theme_color": "#1f2937",
-  "orientation": "portrait-primary",
   "icons": [
-    {
-      "src": "./assets/icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
