@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pension Calculator Federal Civilan</title>
-    <meta name="theme-color" content="#1f2937">
+    <meta name="theme-color" content="#064e3b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Pension Calc">
     <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- RE-ADDED: Supabase JS Client for logging and counter -->
@@ -2405,7 +2411,9 @@
                     R17 = unadjustedNetValues.netByYearCurrent[2010];
                 }
                 if (!R17) R17 = medicalAllowanceBase_unadjusted;
-                const B17 = medicalAllowanceBase_unadjusted;
+                // B17: Net Pension (Before Increases) exactly as shown on screen
+                // (already reduced to 75% for family pension).
+                const B17 = basePension;
                 medicalAllowanceBase = sosDate < policyDate2017 ? R17 : B17;
 
                 if (!isNaN(bpsValue) && bpsValue >= 1 && bpsValue <= 22) {
